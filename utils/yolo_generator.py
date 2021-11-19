@@ -52,7 +52,8 @@ class Sample(object):
 class Stage(object):
 
     def __init__(self, bg_path, input_path, output_path,
-                 class_rgx='', format='*.png'):
+                 class_rgx='', format='*.png',
+                 sample_perc_size=1.0):
         """ Init Stage
 
         @param bg_path: Path to background to render samples
@@ -67,6 +68,8 @@ class Stage(object):
                           when there are multiple
                           samples in same folder
 
+        @param sample_perc_size: Size of sample to render (normalized)
+
         @param format: format of images to locate
         """
         self.background_path = bg_path
@@ -74,6 +77,7 @@ class Stage(object):
         self.output_path = output_path
         self.class_rgx = class_rgx
         self.format = format
+        self.sample_perc_size = sample_perc_size
         if '*.' not in self.format:
             self.format = '*.' + self.format
         self.class_folders = {}
@@ -153,12 +157,15 @@ class Stage(object):
             sample_path = random.choice(self.class_samples[class_name])
             img = Image.open(sample_path)
             img_w, img_h = img.size
+            img_w *= self.sample_perc_size
+            img_h *= self.sample_perc_size
+            img.resize((img_w, img_h))
             if img_w * img_h > bg_w * bg_h:
                 print("sample %s is greater than background" % sample_path)
                 continue
             bg_area -= img_w * img_h
-            pos_x = random.randint(img_w // 2, bg_w - img_w // 2)
-            pos_y = random.randint(img_h // 2, bg_h - img_h // 2)
+            pos_x = random.randint(-img_w // 2, bg_w - img_w // 2)
+            pos_y = random.randint(-img_h // 2, bg_h - img_h // 2)
             samples.append(
                 Sample(class_id, img, pos_x, pos_y,
                        bg_w, bg_h, len(class_name_lst))

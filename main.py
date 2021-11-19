@@ -66,6 +66,10 @@ yolog.add_argument('-r', '--rgx', action='store', type=str,
                    help='Regex to get class from image file name')
 yolog.add_argument('-f', '--format', action='store', type=str,
                    default='*.png', help='Format of images')
+yolog.add_argument('-z', '--sample-size', action='store', type=int,
+                   default=1.0, help='Format of images')
+
+
 
 yolog.set_defaults(parser='yologen')
 
@@ -80,7 +84,6 @@ if parsed_args.parser == 'rmbg':
     )
     rmb.remove_background()
 elif parsed_args.parser == 'split':
-    __import__('ipdb').set_trace()
     sep = Separator(
         parsed_args.source,
         parsed_args.train,
@@ -95,12 +98,12 @@ elif parsed_args.parser == 'split':
         remove_source=parsed_args.remove,
     )
 elif parsed_args.parser == 'yologen':
-    __import__('ipdb').set_trace()
     stage = Stage(
         parsed_args.background,
         parsed_args.samples,
         parsed_args.output,
         class_rgx=parsed_args.rgx,
         format=parsed_args.format,
+        sample_perc_size=parsed_args.sample_size,
     )
     stage.generate_random_scenes(num_frames=parsed_args.quantity)
