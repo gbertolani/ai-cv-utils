@@ -171,10 +171,11 @@ class Stage(object):
                        bg_w, bg_h, len(class_name_lst))
             )
             # bg.paste(img, (pos_x, pos_y))
-            bg = Image.alpha_composite(
-                Image.new("RGBA", bg.size),
-                bg.convert('RGBA')
-            )
+            # # TODO: if bg is .png:
+            # bg = Image.alpha_composite(
+            #     Image.new("RGBA", bg.size),
+            #     bg.convert('RGBA')
+            # )
             bg.paste(img, (pos_x, pos_y), img)
 
         # Write File
@@ -183,14 +184,14 @@ class Stage(object):
         f.writelines([' '.join(x.get_yolo_format()) + '\n' for x in samples])
         f.close()
         # Save Image
-        img_path = os.path.join(self.output_path, 'frame_%s.png' % str(uuid))
+        img_path = os.path.join(self.output_path, 'frame_%s.jpg' % str(uuid))
         bg.save(img_path)
         return True
 
     def generate_random_scenes(self, num_frames=1):
         if not self.enable_generator:
             return True
-        files_qty = len(glob(self.output_path + '/*.png'))
+        files_qty = len(glob(self.output_path + '/*.jpg'))
         for i in range(0, num_frames):
             print("Creating Random scene %s of %s" % (i + 1, num_frames))
             self._generate_random_scene(files_qty + i)
