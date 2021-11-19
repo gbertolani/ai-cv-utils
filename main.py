@@ -66,7 +66,7 @@ yolog.add_argument('-r', '--rgx', action='store', type=str,
                    help='Regex to get class from image file name')
 yolog.add_argument('-f', '--format', action='store', type=str,
                    default='*.png', help='Format of images')
-yolog.add_argument('-z', '--sample-size', action='store', type=int,
+yolog.add_argument('-z', '--sample-size', action='store', type=float,
                    default=1.0, help='Format of images')
 
 

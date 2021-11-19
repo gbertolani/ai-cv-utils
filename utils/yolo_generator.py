@@ -157,9 +157,9 @@ class Stage(object):
             sample_path = random.choice(self.class_samples[class_name])
             img = Image.open(sample_path)
             img_w, img_h = img.size
-            img_w *= self.sample_perc_size
-            img_h *= self.sample_perc_size
-            img.resize((img_w, img_h))
+            img_w = math.floor(img_w * self.sample_perc_size)
+            img_h = math.floor(img_h * self.sample_perc_size)
+            img.thumbnail((img_w, img_h))
             if img_w * img_h > bg_w * bg_h:
                 print("sample %s is greater than background" % sample_path)
                 continue
