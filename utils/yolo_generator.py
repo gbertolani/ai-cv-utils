@@ -53,7 +53,7 @@ class Stage(object):
 
     def __init__(self, bg_path, input_path, output_path,
                  class_rgx='', format='*.png',
-                 sample_perc_size=1.0):
+                 sample_perc_size=1.0, sample_degree=0):
         """ Init Stage
 
         @param bg_path: Path to background to render samples
@@ -70,6 +70,8 @@ class Stage(object):
 
         @param sample_perc_size: Size of sample to render (normalized)
 
+        @param sample_degree: Angle to rotate sample (0 to angle)
+
         @param format: format of images to locate
         """
         self.background_path = bg_path
@@ -78,6 +80,7 @@ class Stage(object):
         self.class_rgx = class_rgx
         self.format = format
         self.sample_perc_size = sample_perc_size
+        self.sample_degree = sample_degree
         if '*.' not in self.format:
             self.format = '*.' + self.format
         self.class_folders = {}
@@ -157,9 +160,14 @@ class Stage(object):
             sample_path = random.choice(self.class_samples[class_name])
             img = Image.open(sample_path)
             img_w, img_h = img.size
-            img_w = math.floor(img_w * self.sample_perc_size)
-            img_h = math.floor(img_h * self.sample_perc_size)
-            img.thumbnail((img_w, img_h))
+            if self.sample_perc_size != 1.0:
+                img_w = math.floor(img_w * self.sample_perc_size)
+                img_h = math.floor(img_h * self.sample_perc_size)
+                img.thumbnail((img_w, img_h))
+            if self.sample_degree != 0:
+                angle = random.randint(0, self.sample_degree)
+                img = img.rotate(angle, expand=True)
+                img_w, img_h = img.size
             if img_w * img_h > bg_w * bg_h:
                 print("sample %s is greater than background" % sample_path)
                 continue

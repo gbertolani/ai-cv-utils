@@ -68,7 +68,8 @@ yolog.add_argument('-f', '--format', action='store', type=str,
                    default='*.png', help='Format of images')
 yolog.add_argument('-z', '--sample-size', action='store', type=float,
                    default=1.0, help='Format of images')
-
+yolog.add_argument('-d', '--sample-degree', action='store', type=int,
+                   default=0, help='Angle to rotate Sample')
 
 
 yolog.set_defaults(parser='yologen')
@@ -105,5 +106,6 @@ elif parsed_args.parser == 'yologen':
         class_rgx=parsed_args.rgx,
         format=parsed_args.format,
         sample_perc_size=parsed_args.sample_size,
+        sample_degree=parsed_args.sample_degree,
     )
     stage.generate_random_scenes(num_frames=parsed_args.quantity)
