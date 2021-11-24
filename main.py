@@ -40,11 +40,11 @@ sepf.add_argument('-v', '--validation', action='store', type=str,
 sepf.add_argument('-x', '--test', action='store', type=str,
                   help='Test (Folder)')
 sepf.add_argument('-tp', '--train-perc', action='store', type=float,
-                  help='Train Percent')
+                  help='Train Percent', default=0.0)
 sepf.add_argument('-vp', '--validation-perc', action='store', type=float,
-                  help='Validation Perc')
+                  help='Validation Perc', default=0.0)
 sepf.add_argument('-xp', '--test-perc', action='store', type=float,
-                  help='Test Percent')
+                  help='Test Percent', default=0.0)
 sepf.add_argument('-f', '--format', action='store', type=str,
                   help='Format to find files e.g jpg,png,jepg')
 sepf.add_argument('-r', '--remove', action='store', type=bool,

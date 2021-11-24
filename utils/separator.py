@@ -36,7 +36,7 @@ class Separator(object):
         if train_perc < 0.0 or \
                 test_perc < 0.0 or validation_perc < 0.0:
             raise Exception("Percentage must be positive")
-        total_perc = train_perc + test_perc + validation_path
+        total_perc = train_perc + test_perc + validation_perc
         if total_perc != 100.0:
             raise Exception("Total percentage must be 100%%")
         self.samples_path = samples_path
@@ -46,7 +46,6 @@ class Separator(object):
         self.train_perc = train_perc
         self.validation_perc = validation_perc
         self.test_perc = test_perc
-        return True
 
     def get_target_path(self, percent):
         perc_lst = [
@@ -66,8 +65,8 @@ class Separator(object):
     def split_samples(self, format=False, remove_source=False):
         if isinstance(format, str):
             format = format.split(',')
-        if not isinstance(format, list) or \
-                not isinstance(format, tuple):
+        if (not isinstance(format, list) or \
+                not isinstance(format, tuple)) and format:
             raise Exception("Invalid Format %s." % format)
         if not format:
             # Get all files
@@ -82,7 +81,7 @@ class Separator(object):
                     map_files[fpath.stem] = []
                 map_files[fpath.stem].append(fpath.suffix)
         # Random selection and random split
-        file_name_lst = map_files.keys()
+        file_name_lst = list(map_files.keys())
         for i in range(0, len(file_name_lst)):
             file_name = random.choice(file_name_lst)
             file_name_lst.remove(file_name)
