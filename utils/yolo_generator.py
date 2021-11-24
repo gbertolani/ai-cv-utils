@@ -20,15 +20,28 @@ class Sample(object):
         self.idx = class_id
         self.image = image
         self.width, self.height = image.size
-        self.lx = x - self.width // 2
-        self.rx = x + self.width // 2
-        self.ly = y - self.height // 2
-        self.ry = y + self.height // 2
-        self.center_x = x
-        self.center_y = y
+        self.x = x
+        self.y = y
+        self.lx = self._fix_measure(x, bg_w)
+        self.rx = self._fix_measure(x + self.width, bg_w)
+        self.ly = self._fix_measure(y, bg_h)
+        self.ry = self._fix_measure(y + self.height, bg_w)
+        self.center_x = (self.lx + self.rx) // 2
+        self.center_y = (self.ly + self.ry) // 2
         self.bg_w = bg_w
         self.bg_h = bg_h
         self.max_classes = max_classes
+
+    def _fix_measure(self, pos, bg_measure):
+        """
+        Returns the necessary position so that
+        it is always inside the background
+        """
+        if pos <= 0:
+            pos = 0
+        elif pos >= bg_measure:
+            pos = bg_measure
+        return pos
 
     def _truncate(self, number):
         """
