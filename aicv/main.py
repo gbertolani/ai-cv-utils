@@ -6,9 +6,9 @@
 
 import click
 
-from utils.remove_background import BackgroundEliminator
-from utils.separator import Separator
-from utils.yolo_generator import Stage
+from .utils.remove_background import BackgroundEliminator
+from .utils.separator import Separator
+from .utils.yolo_generator import Stage
 
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
