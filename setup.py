@@ -17,7 +17,7 @@ install_requires=[
 
 setup(
     name='ai-cv-utils',
-    version='0.0.2',
+    version='0.0.4',
     author='Gaston Alberto Bertolani',
     author_email='gbertolani.in@gmail.com',
     description='AI Computer Vision Utilities',

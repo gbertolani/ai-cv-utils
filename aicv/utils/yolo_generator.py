@@ -220,8 +220,5 @@ class Stage(object):
         with click.progressbar(range(0, num_frames),
                                label='Creating Stages') as bar:
             for i in bar:
-                click.echo(
-                    "Creating Random scene %s of %s" % (i + 1, num_frames)
-                )
                 self._generate_random_scene(files_qty + i)
         return True
