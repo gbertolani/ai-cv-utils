@@ -57,20 +57,20 @@ def rmbg(source, target, no_origin=False, with_groups=False):
               required=True, help='Path to the "validation" folder')
 @click.option('-x', '--test', type=click.Path(),
               required=True, help='Path to the "test" folder')
-@click.option('-T', '--train-perc', type=click.Path(),
+@click.option('-T', '--train-perc', type=float,
               required=False, help='Percent of train folder',
               default=0.0)
-@click.option('-V', '--validation-perc', type=click.Path(),
+@click.option('-V', '--validation-perc', type=float,
               required=False, help='Percent of validation folder',
               default=0.0)
-@click.option('-X', '--test-perc', type=click.Path(),
+@click.option('-X', '--test-perc', type=float,
               required=False, help='Percent of test folder',
               default=0.0)
 @click.option('-f', '--format', type=str,
               required=False, help='Format to find files e.g jpg,png,jepg')
 @click.option('-r', '--remove', type=bool, default=False,
               required=False, help='Remove Source Files')
-def split(source_path, train_path, validation_path, test_path,
+def split(source_path, train, validation, test,
           train_perc, validation_perc, test_perc,
           format, remove):
     """
@@ -82,9 +82,9 @@ def split(source_path, train_path, validation_path, test_path,
 
     """
     sep = Separator(
-        source_path, train_path,
-        validation_path=validation_path,
-        test_path=test_path,
+        source_path, train,
+        validation_path=validation,
+        test_path=test,
         train_perc=train_perc,
         validation_perc=validation_perc,
         test_perc=test_perc,
