@@ -1,5 +1,5 @@
 # AI-CV-UTILS
-## _The best tool for generating test data
+## _The best tool for generating test data_
 
 Become a test data wizard, generating data quickly and easily.
 
